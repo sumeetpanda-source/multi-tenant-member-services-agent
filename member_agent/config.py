@@ -52,6 +52,7 @@ class Settings:
     model_name: str = ""
     model_endpoint: str = "http://127.0.0.1:11434/api/chat"
     model_key: str = field(default="", repr=False)
+    reasoning_effort: str = ""
     input_rate: Decimal = Decimal("0")
     output_rate: Decimal = Decimal("0")
     max_steps: int = 80
@@ -70,6 +71,8 @@ class Settings:
             raise AgentError("invalid_model_provider")
         if self.model_provider != "rules" and not self.model_name:
             raise AgentError("model_name_required")
+        if self.reasoning_effort not in {"", "none", "minimal", "low", "medium", "high", "xhigh", "max"}:
+            raise AgentError("invalid_model_reasoning_effort")
         if (not all(isinstance(v, Decimal) and v.is_finite()
                     for v in (self.input_rate, self.output_rate, self.max_cost))
                 or min(self.input_rate, self.output_rate, self.max_cost) < 0):
@@ -121,6 +124,7 @@ class Settings:
             model_name=env.get("MODEL_NAME", ""),
             model_endpoint=env.get("MODEL_ENDPOINT") or default_endpoint,
             model_key=env.get("MODEL_API_KEY") or env.get("OPENAI_API_KEY", ""),
+            reasoning_effort=env.get("MODEL_REASONING_EFFORT", ""),
             input_rate=Decimal(env.get("MODEL_INPUT_USD_PER_MILLION", "0")),
             output_rate=Decimal(env.get("MODEL_OUTPUT_USD_PER_MILLION", "0")),
             max_steps=int(env.get("MAX_STEPS", "80")),

@@ -44,6 +44,7 @@ class ConfigTests(unittest.TestCase):
         fx = Fixture()
         self.addCleanup(fx.close)
         changes = ({"max_cost": Decimal("NaN")}, {"turn_timeout": float("inf")},
+                   {"reasoning_effort": "unsupported"},
                    {"tenant_tokens": {"red": 123}}, {"tenant_tokens": {"red": "token\ninjected"}})
         for change in changes:
             with self.subTest(change=change):
@@ -54,10 +55,12 @@ class ConfigTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             file = Path(temp) / "local.env"
             file.write_text('MODEL_PROVIDER=openai\nMODEL_NAME=test-model\nOPENAI_API_KEY=test-key\n'
+                            'MODEL_REASONING_EFFORT=none\n'
                             'TENANT_TOKENS_JSON={"red":"test-tenant-token"}\n'
                             'MODEL_INPUT_USD_PER_MILLION=1\nMODEL_OUTPUT_USD_PER_MILLION=2\nMODEL_ENDPOINT=\n')
             with patch.dict("os.environ", {}, clear=True):
                 settings = Settings.from_env(pack_dir=temp, env_file=file)
             self.assertEqual("test-key", settings.model_key)
             self.assertEqual("https://api.openai.com/v1/responses", settings.model_endpoint)
+            self.assertEqual("none", settings.reasoning_effort)
             self.assertNotIn("test-key", repr(settings))

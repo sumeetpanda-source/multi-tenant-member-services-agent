@@ -42,18 +42,25 @@ class ModelTests(unittest.TestCase):
         return Agent(settings, transport=self.fx.transport, model_transport=model_transport or ModelTransport(provider))
 
     def test_openai_payload_contract_and_usage(self):
-        transport = ModelTransport()
-        agent = self.model_agent(model_transport=transport)
-        reply = agent.ask(self.fx.scope, "What does a specialist visit cost?")
-        self.assertEqual("answer", reply.behaviour)
-        payload = json.loads(transport.calls[0]["body"])
-        self.assertIs(False, payload["store"])
-        self.assertTrue(payload["text"]["format"]["strict"])
-        self.assertFalse(payload["text"]["format"]["schema"]["additionalProperties"])
-        self.assertNotIn("previous_response_id", payload)
-        self.assertEqual(128, reply.metrics["model_tokens"])
-        self.assertEqual(Decimal("0.0000608"), Decimal(reply.metrics["cost_usd"]))
-        self.assertIn("$47 copay", reply.text)
+        for effort in ("", "none"):
+            with self.subTest(reasoning_effort=effort):
+                transport = ModelTransport()
+                agent = self.model_agent(model_transport=transport, reasoning_effort=effort)
+                scope = agent.new_session("red", "M900001")
+                reply = agent.ask(scope, "What does a specialist visit cost?")
+                self.assertEqual("answer", reply.behaviour)
+                payload = json.loads(transport.calls[0]["body"])
+                self.assertIs(False, payload["store"])
+                self.assertTrue(payload["text"]["format"]["strict"])
+                self.assertFalse(payload["text"]["format"]["schema"]["additionalProperties"])
+                self.assertNotIn("previous_response_id", payload)
+                if effort:
+                    self.assertEqual({"effort": effort}, payload["reasoning"])
+                else:
+                    self.assertNotIn("reasoning", payload)
+                self.assertEqual(128, reply.metrics["model_tokens"])
+                self.assertEqual(Decimal("0.0000608"), Decimal(reply.metrics["cost_usd"]))
+                self.assertIn("$47 copay", reply.text)
 
     def test_raw_question_records_and_identifiers_never_reach_model(self):
         transport = ModelTransport()

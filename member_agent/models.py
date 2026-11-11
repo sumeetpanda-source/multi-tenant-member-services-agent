@@ -47,6 +47,8 @@ class ModelRouter:
                 "text": {"format": {"type": "json_schema", "name": "member_intent",
                                     "strict": True, "schema": INTENT_SCHEMA}},
             }
+            if self.settings.reasoning_effort:
+                payload["reasoning"] = {"effort": self.settings.reasoning_effort}
         elif provider == "ollama":
             payload = {"model": self.settings.model_name, "messages": messages, "stream": False,
                        "format": INTENT_SCHEMA, "options": {"temperature": 0, "num_predict": max_output}}

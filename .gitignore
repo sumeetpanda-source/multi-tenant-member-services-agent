@@ -8,6 +8,8 @@
 
 # Private working documents.
 /*.md
+!/README.md
+!/NOTES.md
 /docs/
 /private/
 
