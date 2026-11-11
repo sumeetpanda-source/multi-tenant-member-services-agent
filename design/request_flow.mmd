@@ -1,0 +1,29 @@
+flowchart TD
+    Rep[Representative question or confirmation] --> Identity[Entra ID and tenant Functions ingress]
+    Identity --> Scope[Validate JWT and authorise tenant and member]
+    Scope --> Policy[Scoped session lease and budget checks]
+    Policy -->|Read question| Model[Model receives minimised routing features]
+    Model --> Read[Mandatory gateway validates the read tool]
+    Read --> Evidence[Tenant Blob KB or scoped plan and directory APIs]
+    Evidence --> Projection[Ownership and provenance checks then minimum projection]
+    Projection --> Answer[Cited answer with deterministic calculations and cache age]
+    Policy -->|Filing request| Draft[Gateway creates or resumes the scoped Cosmos draft]
+    Draft --> Confirm{Rep confirms exact member agreed summary}
+    Confirm -->|Wait| Draft
+    Confirm -->|Cancel| Cancel[Mark draft CANCELLED without POST]
+    Confirm -->|Yes| Approval[Gateway validates approval digest scope and lease]
+    Approval --> Ledger[Cosmos ETag batch persists IN_FLIGHT and outbox event]
+    Policy -->|Resume IN_FLIGHT| Approval
+    Ledger --> Submit[POST grievance with the same key and exact bytes]
+    Submit -->|503 or lost acknowledgement| Approval
+    Submit -->|Acknowledgement| Complete[Persist COMPLETED and the original result]
+    Answer --> Reply[Representative response and scoped continuation]
+    Complete --> Reply
+    Cancel --> Reply
+    Policy -. Safe step events .-> Outbox[Tenant Cosmos audit outbox]
+    Read -.-> Outbox
+    Draft -.-> Outbox
+    Ledger -.-> Outbox
+    Complete -.-> Outbox
+    Outbox --> Export[Checkpointed exporter]
+    Export --> Audit[Tenant Blob store with locked six year retention]

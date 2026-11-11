@@ -1,97 +1,97 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="2100" height="2320" viewBox="0 0 2100 2320">
 <rect width="100%" height="100%" fill="white"/>
-<text x="1050" y="55" font-family="Arial" font-size="49" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">AWS target production architecture</text>
+<text x="1050" y="55" font-family="Arial" font-size="49" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Azure production architecture</text>
 <text x="1050" y="112" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">One approved region   Multiple Availability Zones</text>
 <rect x="625" y="175" width="850" height="130" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
 <text x="1050.0" y="217.56" font-family="Arial" font-size="34" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Representative application</text>
-<text x="1050.0" y="262.44" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Authenticated workforce identity</text>
+<text x="1050.0" y="262.44" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Microsoft Entra ID workforce sign in</text>
 <rect x="625" y="380" width="850" height="150" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1050.0" y="433.88" font-family="Arial" font-size="32" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">API Gateway and Cognito federation</text>
-<text x="1050.0" y="476.12" font-family="Arial" font-size="32" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Verified tenant claims  member authorisation</text>
+<text x="1050.0" y="433.88" font-family="Arial" font-size="32" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Azure Functions HTTPS ingress</text>
+<text x="1050.0" y="476.12" font-family="Arial" font-size="32" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Validate JWT  rep role  tenant and member access</text>
 <polyline points="1050,305 1050,380" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1050,380 1042.1706203859978,363.7919521576518 1057.8293796140022,363.7919521576518" fill="#52697B"/>
 <rect x="400" y="610" width="1275" height="200" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1037.5" y="663.8" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Lambda application runtime</text>
-<text x="1037.5" y="710.0" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Session  bounded agent  model adapter</text>
-<text x="1037.5" y="756.1999999999999" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Mandatory gateway  budgets  approval  audit</text>
+<text x="1037.5" y="663.8" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Functions Flex app per health plan</text>
+<text x="1037.5" y="710.0" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Bounded agent  model adapter  mandatory tool gateway</text>
+<text x="1037.5" y="756.1999999999999" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Separate managed identities and tenant data roles</text>
 <polyline points="1050,530 1050,610" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1050,610 1042.1706203859978,593.7919521576518 1057.8293796140022,593.7919521576518" fill="#52697B"/>
 <rect x="20" y="610" width="350" height="220" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
-<text x="195.0" y="648.72" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Model provider</text>
-<text x="195.0" y="696.24" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Approved endpoint</text>
-<text x="195.0" y="743.76" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Features only</text>
-<text x="195.0" y="791.28" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">No member data</text>
+<text x="195.0" y="650.7" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Model provider</text>
+<text x="195.0" y="696.9000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Approved endpoint</text>
+<text x="195.0" y="743.1" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Features only</text>
+<text x="195.0" y="789.3000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">No member IDs</text>
 <polyline points="400,700 370,700" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="370,700 386.2080478423482,692.1706203859978 386.2080478423482,707.8293796140022" fill="#52697B"/>
 <rect x="1740" y="610" width="340" height="220" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1910.0" y="652.68" font-family="Arial" font-size="34" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Security ops</text>
-<text x="1910.0" y="697.56" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Secrets and KMS</text>
-<text x="1910.0" y="742.4399999999999" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Metrics and alerts</text>
+<text x="1910.0" y="652.68" font-family="Arial" font-size="34" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Key Vault</text>
+<text x="1910.0" y="697.56" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Managed identity</text>
+<text x="1910.0" y="742.4399999999999" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Azure Monitor</text>
 <text x="1910.0" y="787.3199999999999" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Restricted egress</text>
 <polyline points="1740,700 1675,700" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1675,700 1691.2080478423482,692.1706203859978 1691.2080478423482,707.8293796140022" fill="#52697B"/>
 <rect x="35" y="940" width="450" height="145" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="260.0" y="988.74" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Evidence retrieval</text>
-<text x="260.0" y="1036.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant  product  year</text>
+<text x="260.0" y="989.4" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Evidence retrieval</text>
+<text x="260.0" y="1035.6" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant  product  year</text>
 <polyline points="1050,810 1050,870 260,870 260,940" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="260,940 252.17062038599786,923.7919521576518 267.82937961400216,923.7919521576518" fill="#52697B"/>
 <rect x="560" y="940" width="450" height="145" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="785.0" y="988.74" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Read API adapters</text>
-<text x="785.0" y="1036.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Ownership  pagination</text>
+<text x="785.0" y="989.4" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Plan API adapter</text>
+<text x="785.0" y="1035.6" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Ownership  pagination</text>
 <polyline points="1050,810 1050,870 785,870 785,940" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="785,940 777.1706203859978,923.7919521576518 792.8293796140022,923.7919521576518" fill="#52697B"/>
 <rect x="1085" y="940" width="450" height="145" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1310.0" y="988.74" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Directory adapter</text>
-<text x="1310.0" y="1036.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Allowlisted parameters</text>
+<text x="1310.0" y="989.4" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Directory adapter</text>
+<text x="1310.0" y="1035.6" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Allowlisted parameters</text>
 <polyline points="1050,810 1050,870 1310,870 1310,940" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1310,940 1302.1706203859978,923.7919521576518 1317.8293796140022,923.7919521576518" fill="#52697B"/>
 <rect x="1610" y="940" width="450" height="145" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1835.0" y="988.74" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Write adapter</text>
-<text x="1835.0" y="1036.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Approval  stable operation</text>
+<text x="1835.0" y="989.4" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Grievance adapter</text>
+<text x="1835.0" y="1035.6" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Approval  stable operation</text>
 <polyline points="1050,810 1050,870 1835,870 1835,940" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1835,940 1827.1706203859978,923.7919521576518 1842.8293796140022,923.7919521576518" fill="#52697B"/>
 <rect x="35" y="1180" width="450" height="245" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="260.0" y="1231.22" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">S3 tenant documents</text>
-<text x="260.0" y="1278.74" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Versioned ingestion</text>
-<text x="260.0" y="1326.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Provenance checks</text>
-<text x="260.0" y="1373.78" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Quarantine conflicts</text>
-<rect x="560" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
-<text x="785.0" y="1231.22" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Health plan systems</text>
-<text x="785.0" y="1278.74" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant credentials</text>
-<text x="785.0" y="1326.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Benefits and claims</text>
-<text x="785.0" y="1373.78" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
-<rect x="1085" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
-<text x="1310.0" y="1231.22" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">CareFinder vendor</text>
-<text x="1310.0" y="1278.74" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Specialty ZIP network</text>
-<text x="1310.0" y="1326.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">No SSN or DOB</text>
-<text x="1310.0" y="1373.78" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
-<rect x="1610" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
-<text x="1835.0" y="1231.22" font-family="Arial" font-size="36" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Grievance system</text>
-<text x="1835.0" y="1278.74" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Same key and bytes</text>
-<text x="1835.0" y="1326.26" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Reconcile lost ack</text>
-<text x="1835.0" y="1373.78" font-family="Arial" font-size="36" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
+<text x="260.0" y="1233.2" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant Blob KB</text>
+<text x="260.0" y="1279.4" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Versioned ingestion</text>
+<text x="260.0" y="1325.6000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Provenance checks</text>
+<text x="260.0" y="1371.8000000000002" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Quarantine conflicts</text>
 <polyline points="260,1085 260,1180" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="260,1180 252.17062038599786,1163.7919521576518 267.82937961400216,1163.7919521576518" fill="#52697B"/>
+<rect x="560" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
+<text x="785.0" y="1233.2" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Health plan APIs</text>
+<text x="785.0" y="1279.4" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant credentials</text>
+<text x="785.0" y="1325.6000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Benefits and claims</text>
+<text x="785.0" y="1371.8000000000002" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
 <polyline points="785,1085 785,1180" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="785,1180 777.1706203859978,1163.7919521576518 792.8293796140022,1163.7919521576518" fill="#52697B"/>
+<rect x="1085" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
+<text x="1310.0" y="1233.2" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">CareFinder vendor</text>
+<text x="1310.0" y="1279.4" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Specialty ZIP network</text>
+<text x="1310.0" y="1325.6000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">No SSN or DOB</text>
+<text x="1310.0" y="1371.8000000000002" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
 <polyline points="1310,1085 1310,1180" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1310,1180 1302.1706203859978,1163.7919521576518 1317.8293796140022,1163.7919521576518" fill="#52697B"/>
+<rect x="1610" y="1180" width="450" height="245" rx="16" fill="#F3F3F3" stroke="#52697B" stroke-width="3"/>
+<text x="1835.0" y="1233.2" font-family="Arial" font-size="35" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Grievance system</text>
+<text x="1835.0" y="1279.4" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Same key and bytes</text>
+<text x="1835.0" y="1325.6000000000001" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Reconcile lost ack</text>
+<text x="1835.0" y="1371.8000000000002" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">External dependency</text>
 <polyline points="1835,1085 1835,1180" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1835,1180 1827.1706203859978,1163.7919521576518 1842.8293796140022,1163.7919521576518" fill="#52697B"/>
 <rect x="160" y="1530" width="1780" height="200" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1050.0" y="1585.12" font-family="Arial" font-size="34" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">DynamoDB tenant partitions and conditional transactions</text>
-<text x="1050.0" y="1630.0" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Sessions and leases  budget reservations  approval digest  operation ledger</text>
-<text x="1050.0" y="1674.8799999999999" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Projected claim cache with application expiry  durable audit outbox</text>
+<text x="1050.0" y="1585.12" font-family="Arial" font-size="34" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Azure Cosmos DB for NoSQL</text>
+<text x="1050.0" y="1630.0" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Tenant container roles  session partitions  ETags and atomic batches</text>
+<text x="1050.0" y="1674.8799999999999" font-family="Arial" font-size="34" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Budgets  approval digest  operation ledger  projected cache  audit outbox</text>
 <polyline points="520,810 520,1470 1050,1470 1050,1530" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1050,1530 1042.1706203859978,1513.7919521576518 1057.8293796140022,1513.7919521576518" fill="#52697B"/>
 <rect x="340" y="1830" width="1420" height="180" rx="16" fill="#EDF3F7" stroke="#52697B" stroke-width="3"/>
-<text x="1050.0" y="1876.44" font-family="Arial" font-size="33" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Audit exporter to tenant S3 Object Lock stores</text>
-<text x="1050.0" y="1920.0" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Six-year retention  encryption  restricted readers</text>
-<text x="1050.0" y="1963.56" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Checkpoint and reconcile durable outbox after interruption</text>
+<text x="1050.0" y="1876.44" font-family="Arial" font-size="33" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Outbox exporter to tenant Blob audit stores</text>
+<text x="1050.0" y="1920.0" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Locked time based retention for six years</text>
+<text x="1050.0" y="1963.56" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Managed identity  encryption  restricted readers  replay checkpoints</text>
 <polyline points="1050,1730 1050,1830" fill="none" stroke="#52697B" stroke-width="4"/>
 <polygon points="1050,1830 1042.1706203859978,1813.7919521576518 1057.8293796140022,1813.7919521576518" fill="#52697B"/>
-<text x="1050" y="2105" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Blue boxes are target managed hosting and application responsibilities</text>
-<text x="1050" y="2160" font-family="Arial" font-size="35" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Gray boxes are clients and external dependencies</text>
-<text x="1050" y="2220" font-family="Arial" font-size="32" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Local slice maps hosting to CLI and durable state to SQLite</text>
-<text x="1050" y="2270" font-family="Arial" font-size="30" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Cloud deployment and managed storage adapters are not provisioned</text>
+<text x="1050" y="2100" font-family="Arial" font-size="33" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Blue boxes are the Azure target   Gray boxes are external dependencies</text>
+<text x="1050" y="2160" font-family="Arial" font-size="32" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Zone redundancy requires ready capacity and validated regional support</text>
+<text x="1050" y="2220" font-family="Arial" font-size="32" font-weight="700" fill="#000000" text-anchor="middle" dominant-baseline="central">Local slice maps ingress to CLI and durable state to SQLite</text>
+<text x="1050" y="2270" font-family="Arial" font-size="30" font-weight="400" fill="#000000" text-anchor="middle" dominant-baseline="central">Azure hosting and managed storage adapters are not provisioned</text>
 </svg>

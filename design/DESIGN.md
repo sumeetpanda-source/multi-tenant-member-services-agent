@@ -1,111 +1,113 @@
-# Member services architecture design
+# Member services Azure architecture
 
-The [fixed-layout version](Design_Brief.pdf) has four content pages plus one architecture diagram page. Its [editable Word source](Design_Brief.docx) is included. The architecture below describes a target deployment; the running slice is local.
+[Design PDF](Design_Brief.pdf) contains four content pages plus one architecture diagram. [Editable source](Design_Brief.docx) and [request flow](FLOW.md) are included.
 
-The platform serves representatives of two health plans while keeping every conversation scoped to one tenant and member. The implemented slice uses a Python CLI, supplied HTTP APIs, validated plan evidence and SQLite. The target below replaces local hosting and state with managed services in one approved AWS region; it is a deployment design, not a provisioned environment.
+The platform supports two health plans while keeping each conversation scoped to one tenant and member. The working slice is a Python CLI with supplied HTTP APIs, validated plan evidence and SQLite. Azure is the primary production target. The design below specifies managed hosting and state; those services are not provisioned by the local slice.
 
-## Primary deployment
+## Primary deployment and data boundaries
 
-API Gateway verifies federated workforce JWTs through Cognito before a trusted session service checks tenant and member authorisation. Stateless Lambda handlers run the bounded agent and mandatory tool gateway. Credentials are selected by trusted scope; explicit claim ownership is checked after retrieval. Model requests contain fixed-vocabulary routing features only. An approved model endpoint remains replaceable through the existing adapter contract.
+Microsoft Entra ID authenticates representatives. Each health plan has its own Azure Functions Flex Consumption app and managed identity. HTTPS ingress validates JWT signature, issuer, audience and representative role, then derives tenant scope and authorises member access. The same application package runs in both apps. Every tool call passes the mandatory application gateway. Model requests contain minimised routing features only; the approved provider endpoint remains configurable.
 
-Tenant S3 document stores feed provenance-validated retrieval with product, year and effective-date filters. DynamoDB conditional transactions hold session leases, budget reservations, approval digests, canonical grievance bodies and operation results. Projected claim caches use conversation/member keys and application expiry. An audit outbox is checkpointed to tenant S3 Object Lock stores with six-year retention, KMS encryption and restricted readers. Secrets Manager, controlled egress and safe CloudWatch metrics support operation.
+Container scoped data-plane roles restrict each identity to its tenant Cosmos DB for NoSQL container and Blob KB and audit stores. Session partitions hold leases, budget reservations, approval digests, canonical grievance bodies, projected claim cache and audit outbox. ETags and same-partition transactional batches protect state changes. Versioned Blob ingestion checks tenant, product, year and provenance. Key Vault stores tenant API credentials; managed identities, private data paths and restricted external egress limit access.
 
-## Requirements and constraints
+## Availability cost latency and scale
 
-Lambda's multi-AZ operation supports regional resilience, but 99.99 percent end-to-end availability is not established by one component. A 30-day error budget is about 4.32 minutes. Region loss and external vendor failures remain unmitigated by year-one multi-region spend. Use canaries, dependency SLOs, regional restore tests and measured capacity before claiming the target.
+Choose one approved region supporting the selected zone features. Zone-redundant Flex requires at least two always-ready instances per configured scaling group, so it does not scale to zero. Price every HTTP and export group before approval. Regional loss and external-provider outages remain risks. The 99.99 percent monthly objective permits about 4.32 minutes in a 30-day month; end-to-end availability needs canaries, dependency SLOs and recovery exercises.
 
-At 20,000 conversations daily, USD 0.03 permits USD 600 per day in combined model and infrastructure cost. Meter both; compare low idle-cost serverless hosting against provisioned readiness only after cold-start and burst tests. A 250-rep peak requires declared turn rates, quotas and tenant fairness. Fresh sequential claims pages take 1.5 seconds each, so universal sub-three-second complete pagination needs an upstream aggregate or an approved freshness contract.
+At 20,000 conversations daily, USD 0.03 allows USD 600 per day in model plus hosting cost. A USD 0.025 model ceiling leaves USD 100 per day for hosting at full allocation; this is a budget envelope, not a cloud quote. Measure Cosmos throughput, ready instances, storage and telemetry. Define turn rates for 250 concurrent reps, test bursts and tenant fairness, and confirm model/API quotas. Fresh 1.5-second sequential claim pages cannot universally satisfy a complete answer below three seconds; seek upstream aggregation or an approved freshness contract.
 
-## Verification evidence
+## Verification and operational evidence
 
-The fixed-layout design records the rules baseline below. Subsequent [live OpenAI results](../reports/openai.json) remain incomplete because of provider request-quota exhaustion; the [README](../README.md#tests-and-evaluation) retains both live attempts and their failing gates. A read-only smoke check succeeded. These later results do not establish production readiness.
-
-The local suite passes 86 tests. The unmodified external pack scores 37/40 with observed safety checks passing; three source/expectation conflicts keep the strict quality gate red. Pack p95 is 4.625 seconds in rules mode. Live-model evaluation, production cost, six-year archive operation and peak load remain unvalidated.
+Local checks pass 86 tests. Rules baseline: 37/40 and p95 4.625 seconds; three source conflicts keep quality red. A live OpenAI smoke passed; the latest full attempt scored 17/40 with 23 HTTP 429 failures. Both live gates fail. No complete live, hosting-cost, peak-load or six-year archive validation is claimed.
 
 
-# Threat model and write protocol
+# Threat model and operation protocol
 
-Assets are member facts, tenant credentials, representative authorisation, immutable approval evidence, write operations and audit records. Trust changes at the caller/session, source/agent, gateway/adapter, application/store and application/vendor boundaries. The local CLI trusts its operator; production identity and storage controls are additional deployment work.
+Protected assets are member facts, tenant credentials, representative authorisation, approval evidence, durable operations and audit records. Untrusted inputs include free text, plan files, claim notes, vendor manifests, pagination links and provider errors. The local CLI trusts its operator; the Azure target adds authenticated ingress and tenant-scoped service identities.
 
-| Boundary | Threat | Enforcement |
+| Boundary | Threat | Control |
 | --- | --- | --- |
-| Representative to session | Forged tenant or member reference | Production JWT and member access checks; local CLI trusts its operator. Gateway rejects scope overrides. |
-| Source to agent | KB, notes or manifest injection | Provenance quarantine, structured evidence and reviewed schemas. Model cannot approve writes. |
-| Adapter to API | Wrong owner or hostile next link | Bound paths, ownership checks, same-scope pagination validation and disabled redirects. |
-| State to backend | Replay, changed payload or lost ack | Approval digest and expiry, durable operation, identical key/body retries; uncertain operations retained. |
-| Data to model or logs | Identity and clinical disclosure | Fixed-vocabulary model features, projected tool results, safe event schema and tenant-restricted audit readers. |
-| Dependency to budget | 429, outage, cost or latency exhaustion | Deadline and step checks, bounded retries with Retry-After, pre-call model reservation and no partial counts. |
+| Caller to session | Forged scope or direct ingress | Validate JWT issuer, audience, signature and rep role; derive tenant; authorise member in the function. |
+| Tenant worker to data | Cross tenant data access | Separate apps and identities; container scoped Cosmos and Blob roles; gateway member and cache checks. |
+| Sources to agent | KB, notes or vendor injection | Provenance quarantine, reviewed schemas and structured evidence; no model write authority. |
+| Application to API | Wrong owner, hostile links or disclosure | Bound paths, claim ownership and pagination checks; restricted egress and no raw member context to model. |
+| State to grievance | Replay or lost acknowledgement | Approval digest, expiry, lease and ETag conditions; identical key and bytes; reconcile uncertain writes. |
+| Audit and budget | Tampering, PHI or quota exhaustion | Safe event schema, atomic outbox and locked retention; bounded calls, quotas, cost reservation and deadlines. |
 
 
-## Approved operation protocol
+## Confirmed write and audit flow
 
-DRAFT becomes APPROVED only after explicit representative confirmation of the displayed member-agreed summary. Approval binds scope and the canonical body hash and expires if unsent. Persist IN_FLIGHT before sending. On timeout or 503, preserve the operation and repeat the same key and bytes. Persist COMPLETED before returning success. Cancellation is permitted only for a draft; repeated confirmation returns the original result.
+A filing request creates a DRAFT and displays the minimised summary. Only explicit representative confirmation of the member-agreed text can create APPROVED state. The approval binds tenant, member, session, operation and exact body digest, and expires if unsent. Persist IN_FLIGHT before POST; retry the same key and exact bytes after an uncertain response. Persist COMPLETED before reporting success. Unconfirmed drafts can be cancelled; an uncertain operation must be reconciled.
 
-Exactly-once effect is conditional on durable local and upstream idempotency state. The supplied mock can commit before 503 and loses its state on restart. Production must specify upstream retention and reconciliation contracts. Pending operations, altered bodies, outbox lag and denied scope changes are monitored without raw clinical text.
+Persist each critical state change and its audit outbox event in the same Cosmos session-partition batch. A checkpointed exporter writes safe events into tenant Blob stores under locked six-year time-based retention. Reconcile outbox lag and replay after interruption. Local SQLite is not an immutable archive. Exactly-once effect still requires the grievance system to retain its idempotency records; restarting the supplied mock discards them.
 
-## Residual risks
+## Residual risk and recovery
 
-A compromised trusted host, stale cache within its approved window, model misclassification, regional outage and downstream incident remain risks. Use access-controlled encrypted state, scoped IAM and tenant archives, independent safety tests, provider-specific evaluation and restore exercises. store=false is not a substitute for a provider retention agreement.
+A compromised worker can access its own tenant's authorised data. Misconfiguration, stale cache, model misclassification, exhausted quotas and regional outages remain risks. Use reviewed data roles, protected keys and archives, expiry checks, restore drills and alerts for denied scope, pending writes and export lag. Provider store=false is not a retention agreement. Production rollout requires identity, storage, failure, load and cost evidence.
 
 
-# Azure deployment mapping
+# Mapping Azure deployment to AWS
 
-Year-two deployment into the second health plan's own Azure tenancy preserves application contracts while replacing hosting, identity, state and audit adapters. Keep all services in one approved region unless a separate availability and spending decision changes that constraint.
+For year-two hosting in a client's AWS account, preserve session, evidence, approval and operation contracts while replacing cloud adapters. Keep each deployment in one approved region. This mapping is a portability design; it does not establish equivalent price, quotas or availability.
 
-| Responsibility | AWS | Azure |
+| Responsibility | Azure primary | AWS counterpart |
 | --- | --- | --- |
-| Workforce identity | Cognito federation and verified JWT | Microsoft Entra ID and verified application claims |
-| API boundary | API Gateway HTTP API | API Management or Functions ingress with equivalent JWT checks |
-| Application runtime | Lambda stateless handlers | Functions Flex Consumption with measured concurrency and readiness |
-| Durable state | DynamoDB conditional transactions | Cosmos DB transactional batch within a session partition and ETag conditions |
-| KB and cache | Tenant S3 document stores and state TTL | Tenant Blob containers and Cosmos TTL with application freshness checks |
-| Immutable audit | S3 Object Lock with six-year retention | Blob immutable time-based locked policy with six-year retention |
-| Secrets and keys | Secrets Manager and KMS | Key Vault and managed identities with equivalent access separation |
-| Monitoring | CloudWatch metrics and alarms | Azure Monitor and Application Insights with the same event schema |
+| Workforce identity | Entra ID and validated JWT roles | Cognito workforce federation; revalidate tenant claims |
+| HTTPS ingress | Functions HTTP endpoint and JWT checks | API Gateway JWT authorizer with scoped Lambda routing |
+| Tenant runtime | Separate Functions Flex apps and identities | Separate Lambda functions and IAM execution roles |
+| Durable state | Cosmos tenant containers; ETags and session batch | DynamoDB scoped tables; conditional TransactWriteItems |
+| Plan evidence | Tenant Blob containers and provenance checks | Tenant S3 stores and the same ingestion manifests |
+| Immutable audit | Locked Blob retention and checkpointed outbox | S3 Object Lock retention and the same outbox contract |
+| Secrets and keys | Managed identities and Key Vault | IAM roles, Secrets Manager and KMS |
+| Operations | Azure Monitor, alerts and private data paths | CloudWatch, alarms and scoped VPC endpoints |
 
 
 ## Migration invariants
 
-Preserve tenant identity, session and operation IDs, canonical request bytes and approval digests. DynamoDB conditions map to Cosmos ETag checks and transactional batches within a session partition. Revalidate lease fencing, budget reservations and retry races. TTL deletion is asynchronous on managed stores, so application expiry checks remain mandatory.
+Preserve authorised tenant identity, session and operation IDs, canonical request bytes and approval digests. Cosmos ETag checks and same-partition batches map to DynamoDB conditional transactional writes. Retest lease fencing, duplicate confirmation and cost reservations against the new store. Both designs require application expiry checks rather than relying on asynchronous TTL deletion.
 
-Re-issue scoped credentials and identity mappings; retest member access and all external egress allowlists. Transfer KB versions with provenance manifests. Retain old audit archives under their existing policies until the required retention and transfer controls are satisfied. Re-run quality, isolation, write recovery, latency, load and cost evidence before cutover.
-
-[Azure Functions Flex Consumption](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan)
-
-[Azure Blob immutable storage](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview)
-
-
-# Architecture decision records
-
-## ADR 1 Gateway as the policy boundary
-
-A valid downstream token does not establish tenant authorisation. Bind every tool to a verified session and recheck member ownership. Alternatives were prompt-only controls and trusting backend routes. This adds checks and tests but keeps model or source behaviour from changing scope.
-
-## ADR 2 Structured and versioned evidence
-
-The small KB contains mixed years and conflicting tenant provenance. Validate folder and metadata agreement and retrieve table evidence by tenant, product, year and effective date. A vector-only index or folder-only filter was rejected. Conflicts fail closed and citations remain reproducible; prose-only extensions need a reviewed parser.
-
-## ADR 3 Durable approved operation
-
-A grievance may commit before a 503. Persist the canonical body, approval digest and operation key before sending. Retry the same bytes and key. A new key per attempt or model-managed confirmation was rejected. This requires durable state and downstream idempotency retention; it guarantees an effect only within that contract.
-
-## ADR 4 Bounded claim reuse
-
-Sequential claims pages dominate latency. Use date-aware complete retrieval and a 30-second conversation/member cache of projected fields, display age, and permit TTL zero. Global raw-record caches and speculative page fan-out were rejected. Fresh complete counts remain slower; cache scope and expiration are explicitly tested.
-
-## ADR 5 Single region and replaceable services
-
-Low approved spend and year-two portability favour a stateless serverless target with isolated tenant stores and provider adapters. Always-on Kubernetes and year-one multi-region replication were rejected for this workload. AWS to Azure migration needs semantic storage and identity adapters; multi-AZ hosting cannot remove regional or vendor failure risk.
-
-## Design references
+Transfer versioned KB content with provenance manifests; re-issue scoped credentials and external egress policy. Keep old audit archives under their originating retention controls until migration requirements are satisfied. Exporting a blob does not transfer its immutability policy. Re-run quality, isolation, write recovery, restore, latency, load and full cost checks before cutover.
 
 [AWS Lambda resilience](https://docs.aws.amazon.com/lambda/latest/dg/security-resilience.html)
 
 [Amazon S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html)
 
 
-# Production architecture diagram
+# Architecture decision records
 
-![Production architecture](architecture.svg)
+## ADR 1 Tenant isolation and policy gateway
 
-Figure 1  Proposed single-region hosting and application trust boundaries
+Context: backend tokens do not prove tenant ownership. Decision: separate tenant apps and identities and bind every tool to an authorised session, with ownership checks. Alternatives: one broad identity or prompt-only isolation. Consequences: more deployment objects and policy tests, with smaller data-access scope per worker.
+
+## ADR 2 Structured versioned evidence
+
+Context: documents contain multiple years and conflicting tenant provenance. Decision: validate metadata and retrieve structured evidence by tenant, product, year and effective date. Alternatives: vector-only retrieval or folder-only filtering. Consequences: reproducible citations and closed failures on conflict; prose-only extensions need a reviewed parser.
+
+## ADR 3 Durable approved operation
+
+Context: an upstream write can commit before a 503. Decision: use session-partition Cosmos batches, approval hashes and a stable key/body, with IN_FLIGHT persisted before POST. Alternatives: new keys per retry or model-managed consent. Consequences: recovery depends on durable upstream idempotency; all writes need conditional state adapters and race tests.
+
+## ADR 4 Bounded projected claim cache
+
+Context: sequential claim pages dominate latency. Decision: date-aware complete retrieval and a 30-second conversation/member cache, displayed age and a fresh-read option. Alternatives: global raw-record caches or speculative page fan-out. Consequences: bounded staleness and lower repeated-read latency; fresh complete counts can still exceed three seconds.
+
+## ADR 5 Azure region and replaceable services
+
+Context: approved spend covers one region and year-two portability. Decision: Functions Flex with selected zone redundancy, Cosmos and Blob adapters; retain the existing model boundary. Alternatives: always-on Kubernetes or multi-region hosting. Consequences: ready-capacity cost and regional failure exposure remain; AWS migration requires semantic identity and transaction tests.
+
+## Azure design references
+
+[Functions Flex hosting and ready capacity](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan)
+
+[Cosmos DB transactional batches](https://learn.microsoft.com/en-us/rest/api/cosmos-db/transactional-batch)
+
+[Cosmos DB container scoped data roles](https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-connect-role-based-access-control)
+
+[Blob immutable retention](https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview)
+
+
+# Azure architecture diagram
+
+![Azure production architecture](architecture.svg)
+
+Figure 1  Azure single-region target with tenant identity and durable-state boundaries

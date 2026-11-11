@@ -2,6 +2,8 @@
 
 A Python CLI for representatives answering benefit and claim questions for one health plan and member per conversation. Every tool passes through a gateway enforcing tenant scope, minimum necessary data, confirmation before writes, and conversation budgets. Grievances use a durable operation ledger and stable idempotency keys.
 
+The production design targets **Microsoft Azure**, with a one-page AWS portability mapping. It uses Entra ID, a separate Functions Flex app and managed identity per health plan, Cosmos DB, Blob Storage, Key Vault and Azure Monitor. Cloud hosting and managed-state adapters are design targets; the runnable slice remains the local CLI.
+
 ## Implementation and model status
 
 The development baseline uses the deterministic `rules` router. A live **OpenAI `gpt-6-luna` smoke check passed**, and two full evaluation attempts are retained below. Full live validation remains incomplete: the latest attempt encountered 23 HTTP 429 failures after the provider reported a 50-request limit with no requests remaining. Its quality and critical-behaviour gates fail. OpenAI Responses, Ollama and compatible Chat Completions adapters also have synthetic contract coverage; Ollama has not been live-tested here.
@@ -221,8 +223,9 @@ Cold complete counts can exceed three seconds because the supplied API takes 1.5
 
 ## Submission documents and privacy
 
-- [Design brief](design/DESIGN.md): production deployment, second-cloud mapping, threats and five ADRs. Its fixed-layout PDF records the rules baseline; the live-run reports above provide subsequent evidence.
+- [Azure design brief](design/DESIGN.md): primary Azure deployment, one-page AWS mapping, threats, five ADRs, and recorded validation limits.
 - [Four-page design PDF plus one diagram page](design/Design_Brief.pdf), with its [editable source](design/Design_Brief.docx) and [architecture SVG](design/architecture.svg).
+- [Request and confirmation flow](design/FLOW.md), with [PNG](design/request_flow.png), [SVG](design/request_flow.svg) and [Mermaid source](design/request_flow.mmd). This companion diagram is separate from the brief's five-page total.
 - [NOTES.md](NOTES.md): assumptions, source conflicts, remaining work and assistance disclosure.
 
 The original brief, supplied data, mock implementation, plan documents, vendor manifest and evaluation corpus stay outside Git. `.env`, member state, transcripts, detailed working documents and private analysis are ignored. Keep operational state on an access-controlled encrypted volume. The sanitized reports and independently authored test fixtures are committed.
