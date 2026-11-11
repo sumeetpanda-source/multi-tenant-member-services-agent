@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "member-services-agent"
+version = "0.1.0"
+description = "Governed member services with scoped retrieval and confirmed writes"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+member-agent = "member_agent.cli:main"
+member-evaluate = "evaluation.runner:main"
+
+[tool.setuptools.packages.find]
+include = ["member_agent*", "evaluation*"]

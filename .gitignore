@@ -1,0 +1,47 @@
+# Interview-supplied pack: do not publish.
+/BRIEF.md
+/data/
+/mock_services/
+/kb/
+/eval/conversations.json
+/tools/third_party_provider_directory.json
+
+# Private working documents.
+/*.md
+/docs/
+/private/
+
+# Secrets and local configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+
+# Member data, local state, and raw traces.
+/runtime/
+/.state/
+/logs/
+/traces/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.log
+
+# Python build and tooling output.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,30 @@
+{
+  "model_provider": "rules",
+  "live_model_evaluated": false,
+  "case_id": "EV-09",
+  "writes_performed": false,
+  "results": {
+    "fresh_reads": {
+      "samples": 5,
+      "cold_median_seconds": 1.797,
+      "cold_p95_seconds": 2.891,
+      "follow_up_median_seconds": 1.782,
+      "follow_up_p95_seconds": 1.859,
+      "follow_up_http_requests": 15,
+      "follow_up_cache_hits": 0,
+      "cache_ttl_seconds": 0
+    },
+    "scoped_cache": {
+      "samples": 5,
+      "cold_median_seconds": 1.844,
+      "cold_p95_seconds": 1.891,
+      "follow_up_median_seconds": 0.281,
+      "follow_up_p95_seconds": 0.313,
+      "follow_up_http_requests": 10,
+      "follow_up_cache_hits": 5,
+      "cache_ttl_seconds": 30
+    }
+  },
+  "median_follow_up_reduction_percent": 84.23,
+  "limitations": "Small sequential local sample of one direct-claim question. Cold paginated counts, 250-rep scale and production availability are not certified."
+}

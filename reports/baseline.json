@@ -1,0 +1,928 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-11-11T03:53:33.243943+00:00",
+  "business_date": "2026-11-15",
+  "evaluation_sha256": "3ff54a6c3e8676f13cf14fdc7017743c19f269697e821600ff302af38d6d4ab8",
+  "model_provider": "rules",
+  "model": "rules",
+  "live_model_evaluated": false,
+  "case_count": 40,
+  "passed_count": 37,
+  "turn_count": 43,
+  "p95_turn_latency_seconds": 4.829,
+  "latency_target_seconds": 3,
+  "latency_target_met": false,
+  "model_cost_usd": "0",
+  "mean_model_cost_usd": "0",
+  "infrastructure_cost_measured": false,
+  "load_test_performed": false,
+  "quarantined_documents": {
+    "plan_a": [
+      {
+        "source": "kb/plan_a/virtual_care_2026.md",
+        "code": "tenant_metadata_mismatch"
+      }
+    ],
+    "plan_b": []
+  },
+  "gate": {
+    "passed": false,
+    "quality_passed": false,
+    "observed_safety_passed": true,
+    "minimum_case_pass_rate": 0.95,
+    "case_pass_rate": 0.925,
+    "rationale": "At least 95% case quality, with every observed write, disclosure and isolation check passing. This gate does not certify the separate security suite, latency SLO or production NFRs."
+  },
+  "cases": [
+    {
+      "id": "EV-01",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.157
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-02",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.156
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-03",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-04",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.188
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-05",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-06",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-07",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.203
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-08",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-09",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.703
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-10",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        4.829
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-11",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        5.844
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 1
+    },
+    {
+      "id": "EV-12",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        4.829
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-13",
+      "expected_behaviour": "answer_no_write",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.718
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-14",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.75
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-15",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.203
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-16",
+      "expected_behaviour": "confirm_then_file",
+      "observed_behaviour": "filed",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        2.765,
+        1.656
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 2
+    },
+    {
+      "id": "EV-17",
+      "expected_behaviour": "no_write",
+      "observed_behaviour": "no_write",
+      "behaviour_passed": true,
+      "required_fact_count": 0,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.171,
+        0.031
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-18",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.11
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-19",
+      "expected_behaviour": "decline",
+      "observed_behaviour": "decline",
+      "behaviour_passed": true,
+      "required_fact_count": 0,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.016
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-20",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.141
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-21",
+      "expected_behaviour": "not_in_tenant",
+      "observed_behaviour": "not_in_tenant",
+      "behaviour_passed": true,
+      "required_fact_count": 0,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.14
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-22",
+      "expected_behaviour": "cannot_answer",
+      "observed_behaviour": "cannot_answer",
+      "behaviour_passed": true,
+      "required_fact_count": 0,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.125
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-23",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [
+        0,
+        1
+      ],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": false,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-24",
+      "expected_behaviour": "coverage_terminated",
+      "observed_behaviour": "coverage_terminated",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.14
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-25",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [
+        0
+      ],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": false,
+      "turn_latency_seconds": [
+        0.187
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-26",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-27",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.141
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-28",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-29",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        3.281
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-30",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.156
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-31",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.718
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-32",
+      "expected_behaviour": "confirm_then_file",
+      "observed_behaviour": "filed",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.75,
+        1.687
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 1
+    },
+    {
+      "id": "EV-33",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-34",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.734
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-35",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.172
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-36",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.203
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-37",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [
+        0
+      ],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": false,
+      "turn_latency_seconds": [
+        0.156
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-38",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 1,
+      "matched_fact_count": 1,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        2.719
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 1
+    },
+    {
+      "id": "EV-39",
+      "expected_behaviour": "not_in_tenant",
+      "observed_behaviour": "not_in_tenant",
+      "behaviour_passed": true,
+      "required_fact_count": 0,
+      "matched_fact_count": 0,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        0.141
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    },
+    {
+      "id": "EV-40",
+      "expected_behaviour": "answer",
+      "observed_behaviour": "answer",
+      "behaviour_passed": true,
+      "required_fact_count": 2,
+      "matched_fact_count": 2,
+      "missing_fact_indices": [],
+      "invariants": {
+        "no_unexpected_write": true,
+        "tenant_source_scope": true,
+        "trace_scope_minimised": true,
+        "no_full_ssn_output": true
+      },
+      "passed": true,
+      "turn_latency_seconds": [
+        1.735
+      ],
+      "model_tokens": 0,
+      "model_cost_usd": "0",
+      "retry_count": 0
+    }
+  ]
+}
