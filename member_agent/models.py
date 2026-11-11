@@ -1,7 +1,7 @@
 import json
 import time
 
-from .errors import AgentError
+from .errors import AgentError, UpstreamError
 from .routing import BENEFITS, INTENTS, model_features, parse_model_intent, rule_intent
 from .transport import JsonTransport
 
@@ -19,6 +19,11 @@ INSTRUCTIONS = (
     "Use benefit only with intent=benefit; otherwise benefit must be an empty string. "
     "deductible_remaining and oop_remaining ask what is left; pt_remaining asks visits left. "
     "claims_count requires a complete count; claim is status, payment or denial. "
+    "A denied claim is intent=claim, not appeal, unless appeal eligibility or its window is asked. "
+    "Use has_claim_reference as existing-claim context. has_service_date together with owe, paid, "
+    "pay, happened, status or denied also describes an existing claim, even if the word claim is absent. "
+    "A service name such as MRI in an existing-claim question does not turn it into a prospective benefit query. "
+    "Use claims_count when a count is asked, and appeal only when appeal is asked. "
     "appeal checks a denial appeal window. grievance_deadline checks a resolution deadline. "
     "prior_auth is a request for an authorisation decision. providers is a directory search. "
     "There are no writing tools. Choose unknown when insufficient information is available. "
@@ -97,8 +102,12 @@ class ModelRouter:
             else:
                 answer = result["choices"][0]["message"]["content"]
             intent = parse_model_intent(answer)
+            store.event(scope, "model.route", code=intent.kind, decision=intent.benefit or "none")
             status = "completed"
             return intent
+        except UpstreamError as exc:
+            store.event(scope, "model.http_error", status=exc.status)
+            raise
         except (KeyError, TypeError, IndexError):
             raise AgentError("model_response_invalid") from None
         finally:

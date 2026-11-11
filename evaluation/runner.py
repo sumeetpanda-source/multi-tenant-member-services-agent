@@ -67,7 +67,9 @@ def snapshot(settings, case):
     return {item["grievance_id"]: item["category"] for item in raw["data"]}
 
 
-def evaluate(settings, *, progress=None):
+def evaluate(settings, *, progress=None, case_delay_seconds=0):
+    if not math.isfinite(case_delay_seconds) or not 0 <= case_delay_seconds <= 60:
+        raise AgentError("invalid_evaluation_case_delay")
     raw = (settings.pack_dir / "eval/conversations.json").read_bytes()
     corpus = json.loads(raw)
     agent = Agent(settings)
@@ -75,7 +77,11 @@ def evaluate(settings, *, progress=None):
     if corpus["as_of"] != clock:
         raise AgentError("evaluation_clock_mismatch")
     results = []
-    for case in corpus["cases"]:
+    for index, case in enumerate(corpus["cases"]):
+        # Separate conversations can be paced for provider quotas. This is outside
+        # each turn's latency measurement, and the report records the chosen delay.
+        if index and case_delay_seconds:
+            time.sleep(case_delay_seconds)
         scope = agent.new_session(case["tenant"], case["member_id"])
         snapshots = [snapshot(settings, case)]
         replies = []
@@ -99,6 +105,9 @@ def evaluate(settings, *, progress=None):
         "mean_turn_latency_seconds": round(sum(latencies) / max(1, len(latencies)), 4),
         "http_requests": sum(item.get("http_requests", 0) for item in results),
         "cache_hits": sum(item.get("cache_hits", 0) for item in results),
+        "model_calls": sum(item.get("model_calls", 0) for item in results),
+        "model_http_error_count": sum(len(item.get("model_http_error_statuses", [])) for item in results),
+        "case_delay_seconds": case_delay_seconds,
         "claims_cache_ttl_seconds": settings.claims_cache_ttl,
         "latency_target_seconds": 3, "latency_target_met": bool(latencies) and p95 < 3,
         "model_cost_usd": str(total_cost),
@@ -117,12 +126,14 @@ def main(argv=None):
     parser.add_argument("--start-mock", action="store_true", help="Start and stop an isolated mock instance")
     parser.add_argument("--output", default="reports/latest.json")
     parser.add_argument("--gate", action="store_true", help="Exit nonzero when the quality/safety gate fails")
+    parser.add_argument("--case-delay-seconds", type=float, default=0,
+                        help="Pace independent cases for provider quotas (0-60); recorded separately from turn latency")
     args = parser.parse_args(argv)
     try:
         with tempfile.TemporaryDirectory(prefix="member-eval-") as temp:
             settings = Settings.from_env(args.pack_dir, args.demo_credentials, Path(temp) / "state.sqlite3", args.env_file)
             with mock_server(settings, args.start_mock) as configured:
-                report = evaluate(configured, progress=lambda result: print(
+                report = evaluate(configured, case_delay_seconds=args.case_delay_seconds, progress=lambda result: print(
                     f"{result['id']}: {'PASS' if result['passed'] else 'FAIL'}", flush=True))
         target = Path(args.output)
         target.parent.mkdir(parents=True, exist_ok=True)

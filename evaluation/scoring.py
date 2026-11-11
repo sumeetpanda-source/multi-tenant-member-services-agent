@@ -61,6 +61,8 @@ def score_case(case, replies, snapshots, traces):
         "retry_count": sum(event["event"] == "http.retry" for event in traces),
         "http_requests": sum(reply.metrics.get("http_requests", 0) for reply in replies),
         "cache_hits": sum(reply.metrics.get("cache_hits", 0) for reply in replies),
+        "model_calls": sum(event["event"] == "model.start" for event in traces),
+        "model_http_error_statuses": [event["status"] for event in traces if event["event"] == "model.http_error"],
     }
 
 

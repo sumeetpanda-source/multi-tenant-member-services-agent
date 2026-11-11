@@ -61,6 +61,9 @@ class ModelTests(unittest.TestCase):
                 self.assertEqual(128, reply.metrics["model_tokens"])
                 self.assertEqual(Decimal("0.0000608"), Decimal(reply.metrics["cost_usd"]))
                 self.assertIn("$47 copay", reply.text)
+                route = next(e for e in agent.store.events(scope) if e["event"] == "model.route")
+                self.assertEqual("benefit", route["code"])
+                self.assertEqual("specialist", route["decision"])
 
     def test_raw_question_records_and_identifiers_never_reach_model(self):
         transport = ModelTransport()
@@ -93,6 +96,8 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(1, len(transport.calls))
         self.assertGreater(Decimal(reply.metrics["cost_usd"]), 0)
         self.assertGreater(reply.metrics["model_tokens"], 0)
+        error = next(e for e in agent.store.events(self.fx.scope) if e["event"] == "model.http_error")
+        self.assertEqual(503, error["status"])
 
     def test_cost_budget_blocks_model_request_before_network(self):
         transport = ModelTransport()

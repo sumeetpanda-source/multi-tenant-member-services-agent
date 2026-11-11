@@ -1,0 +1,26 @@
+{
+  "generated_at_utc": "2026-11-11T17:37:54.157932+00:00",
+  "model_provider": "openai",
+  "model": "gpt-6-luna",
+  "live_model_evaluated": true,
+  "read_only": true,
+  "passed": true,
+  "behaviour": "answer",
+  "citation_count": 1,
+  "model_calls": 1,
+  "model_http_error_status": null,
+  "metrics": {
+    "steps": 8,
+    "model_tokens": 373,
+    "cost_usd": "0.0000545",
+    "active_seconds": 4.375,
+    "turn_seconds": 4.375,
+    "model_provider": "openai",
+    "model": "gpt-6-luna",
+    "infrastructure_cost_measured": false,
+    "http_requests": 2,
+    "cache_hits": 0,
+    "data_age_seconds": 0.0
+  },
+  "safe_failure_codes": []
+}

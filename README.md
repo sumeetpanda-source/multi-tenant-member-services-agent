@@ -4,7 +4,9 @@ A Python CLI for representatives answering benefit and claim questions for one h
 
 ## Implementation and model status
 
-The recorded development and integration runs use the deterministic `rules` router. **No live LLM has been evaluated yet.** OpenAI Responses, Ollama and compatible Chat Completions adapters have synthetic contract coverage. The OpenAI and Ollama configurations below are reproducible setup examples, not claims of measured model quality.
+The development baseline uses the deterministic `rules` router. A live **OpenAI `gpt-6-luna` smoke check passed**, and two full evaluation attempts are retained below. Full live validation remains incomplete: the latest attempt encountered 23 HTTP 429 failures after the provider reported a 50-request limit with no requests remaining. Its quality and critical-behaviour gates fail. OpenAI Responses, Ollama and compatible Chat Completions adapters also have synthetic contract coverage; Ollama has not been live-tested here.
+
+The [sanitised provider-limit observation](reports/openai_provider_limit.json) records the blocker. No further live requests were made after that diagnostic. Review the project's [OpenAI limits](https://platform.openai.com/settings/organization/limits) or wait for quota to become available before repeating the live run.
 
 The model classifies minimised routing features. Application code controls evidence lookup, arithmetic, authorisation, approval and writes. Model requests contain a fixed service vocabulary and reference flags; raw questions, identifiers, member records, clinical notes and transcripts do not cross the model boundary.
 
@@ -124,7 +126,7 @@ Run the same console command after configuration. Once the mock is running, a si
 python -m member_agent --demo-credentials ask --tenant plan_a --member MEMBER_ID --message "What does a specialist visit cost?" --json
 ```
 
-This makes a billable request when OpenAI is selected. A subsequent live evaluation must record its real model name, quality, cost and latency before being represented as submission evidence.
+This makes a billable request when OpenAI is selected. The recorded smoke result is in [reports/openai_smoke.json](reports/openai_smoke.json). A fresh complete evaluation is still required when provider quota is available.
 
 ### Local Ollama
 
@@ -180,6 +182,8 @@ python -m evaluation --pack-dir "C:/path/to/assignment-pack" --env-file .env --d
 
 Live provider selection makes billable model calls. Reports exclude raw conversations, answers, member identifiers and secrets. Review the report before committing it. The agent cannot access the scorer's expected facts.
 
+For a provider with restrictive traffic limits, `--case-delay-seconds 2` spaces independent conversations by two seconds (accepted range 0-60). The report records this separately from each turn's latency; no case is omitted. Pacing cannot bypass an exhausted request allocation. Check the provider's limits before restarting a full run. HTTP status codes are recorded without raw provider error messages, and ambiguous model failures are not automatically retried.
+
 The regression gate requires at least 95% case quality and every observed safety invariant to pass. `--gate` returns nonzero on failure. Independent backend observations verify write effects between turns. GitHub CI runs independent fixtures on Python 3.10 and 3.12; the external pack must be provisioned privately for an integration CI job.
 
 Recorded evidence:
@@ -188,11 +192,16 @@ Recorded evidence:
 | --- | --- |
 | [Automated suite](reports/checks.json) | 86 tests pass |
 | [Unmodified external pack](reports/latest.json) | 37/40 cases in rules mode; observed safety checks pass; quality gate fails |
-| Pack turn latency | p95 4.625 seconds; below-three-second target not met |
+| [OpenAI smoke](reports/openai_smoke.json) | Passed with `gpt-6-luna`; one read-only model call and a grounded citation |
+| [Initial OpenAI attempt](reports/openai_initial.json) | 29/40 before routing clarification; retained unchanged |
+| [Latest OpenAI attempt](reports/openai.json) | 17/40; 23 model HTTP 429 errors; two-second case spacing; both gates fail |
+| Rules baseline turn latency | p95 4.625 seconds; below-three-second target not met |
 | [Direct-claim cache benchmark](reports/performance.json) | 5 samples per configuration; follow-up median 1.782 to 0.281 seconds |
-| Live LLM, cloud cost and 250-rep load | Not evaluated |
+| Cloud cost and 250-rep load | Not evaluated |
 
-Three supplied expectations conflict with validated tenant/product/year evidence: EV-23 imports another tenant's virtual-care terms, EV-25 combines a renewal-year deductible with current accumulators, and EV-37 expects another product's prescription benefit. Original files and raw failures are retained. No case is exempted to turn the gate green.
+Live checks exposed ambiguous routing between a claim denial and an appeal, and a dated visit-payment question was classified as unknown. The classifier instructions now distinguish existing-claim context from prospective benefits; both targeted read checks passed afterward. The latest full run was then limited by provider quota. Its latency and cost are not a successful-workload certification. Failed model requests retain conservative token/cost reservations, so reported cost is a budget estimate rather than an invoice. All raw disclosure, source-scope and unexpected-write invariants remain visible; the stricter critical-behaviour gate also requires successful service and therefore fails during these outages.
+
+The rules baseline has three supplied expectations that conflict with validated tenant/product/year evidence: EV-23 imports another tenant's virtual-care terms, EV-25 combines a renewal-year deductible with current accumulators, and EV-37 expects another product's prescription benefit. Original files and every raw failure are retained. No case is exempted to turn the gate green.
 
 To repeat the small latency benchmark, select rules mode in the local configuration and run:
 
@@ -212,7 +221,7 @@ Cold complete counts can exceed three seconds because the supplied API takes 1.5
 
 ## Submission documents and privacy
 
-- [Design brief](design/DESIGN.md): production deployment, second-cloud mapping, threats and five ADRs.
+- [Design brief](design/DESIGN.md): production deployment, second-cloud mapping, threats and five ADRs. Its fixed-layout PDF records the rules baseline; the live-run reports above provide subsequent evidence.
 - [Four-page design PDF plus one diagram page](design/Design_Brief.pdf), with its [editable source](design/Design_Brief.docx) and [architecture SVG](design/architecture.svg).
 - [NOTES.md](NOTES.md): assumptions, source conflicts, remaining work and assistance disclosure.
 

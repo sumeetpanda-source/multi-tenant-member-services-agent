@@ -18,6 +18,8 @@ At 20,000 conversations daily, USD 0.03 permits USD 600 per day in combined mode
 
 ## Verification evidence
 
+The fixed-layout design records the rules baseline below. Subsequent [live OpenAI results](../reports/openai.json) remain incomplete because of provider request-quota exhaustion; the [README](../README.md#tests-and-evaluation) retains both live attempts and their failing gates. A read-only smoke check succeeded. These later results do not establish production readiness.
+
 The local suite passes 86 tests. The unmodified external pack scores 37/40 with observed safety checks passing; three source/expectation conflicts keep the strict quality gate red. Pack p95 is 4.625 seconds in rules mode. Live-model evaluation, production cost, six-year archive operation and peak load remain unvalidated.
 
 

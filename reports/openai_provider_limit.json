@@ -1,0 +1,14 @@
+{
+  "observation_date_utc": "2026-11-11",
+  "model_provider": "openai",
+  "model": "gpt-6-luna",
+  "http_status": 429,
+  "provider_error_code": "rate_limit_exceeded",
+  "provider_error_type": "requests",
+  "request_limit_header": 50,
+  "requests_remaining_header": 0,
+  "retry_after_header_seconds": 1728,
+  "quota_period_inferred": false,
+  "live_requests_stopped": true,
+  "note": "Safe fields recorded from a minimal provider diagnostic response. No credentials, error messages, member facts or request IDs are retained. Check current account limits before another run; retry and reset hints are not a guaranteed schedule."
+}
